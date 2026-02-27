@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ZARIF Multi Player</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #ffeb3b;
+  --secondary: #f59e0b;
+  --bg-dark: #020617;
+  --glass: rgba(255, 255, 255, 0.08);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Hind Siliguri', sans-serif;
+  margin: 0; padding: 0;
+  background: var(--bg-dark); color: #ffffff;
+  overflow-x: hidden; width: 100%;
+}
+
+body::before {
+  content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.9)), url('https://i.postimg.cc/Wpm4QqMg/IMG-20260206-125538.png');
+  background-size: cover; background-position: center; z-index: -1;
+}
+
+.main-container { max-width: 600px; margin: 0 auto; padding: 20px 15px; text-align: center; }
+
+/* লোগো এনিমেশন */
+.logo-top { 
+  width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--primary); 
+  margin-bottom: 15px; object-fit: cover;
+  box-shadow: 0 0 15px rgba(255,235,59,0.3);
+  animation: pulseLogo 3s infinite ease-in-out;
+}
+@keyframes pulseLogo { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+/* বিজ্ঞাপন বক্স */
+.ad-box { margin: 15px 0; border-radius: 12px; overflow: hidden; display: flex; justify-content: center; }
+
+/* বাটন গ্রিড */
+.button-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+
+.tab-btn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #000; font-weight: 700; font-size: 14px;
+  padding: 15px 8px; border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.4);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* সেকশন এনিমেশন */
+.section {
+  display: none; width: 100%; margin-top: 10px; padding: 25px;
+  background: var(--glass); backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 28px;
+  animation: slideUp 0.6s ease-out forwards;
+}
+@keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+.back-btn { background: linear-gradient(45deg, #ff4757, #ff6b81); color: white; border: none; padding: 13px; border-radius: 15px; font-weight: 700; cursor: pointer; margin-bottom: 25px; width: 100%; }
+
+/* লিস্ট স্টাইল */
+.rule-list { list-style: none; padding: 0; text-align: left; }
+.rule-list li { background: rgba(255,255,255,0.06); margin-bottom: 12px; padding: 15px; border-radius: 15px; border-left: 5px solid #3b82f6; font-size: 14px; }
+
+.player-tag { display: inline-block; background: rgba(59,130,246,0.25); padding: 8px 14px; margin: 6px; border-radius: 10px; font-size: 14px; border: 1px solid rgba(59,130,246,0.3); }
+
+.media-btn { display: block; padding: 15px; margin: 10px 0; color: white; text-decoration: none; border-radius: 16px; font-weight: bold; text-align: center; }
+
+/* কার্ড ডিজাইন */
+.item-card { background: rgba(0,0,0,0.4); padding: 18px; border-radius: 22px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 25px; text-align: center; }
+.item-img { width: 100%; border-radius: 15px; border: 2px solid var(--primary); margin-bottom: 15px; }
+
+/* অটো অ্যাড ওভারলে */
+#autoAdOverlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.98); z-index:9999; justify-content:center; align-items:center; flex-direction:column; padding:10px; }
+</style>
+</head>
+<body>
+
+<div class="main-container">
+  
+  <div class="ad-box">
+    <script type="text/javascript">atOptions = {'key' : 'dc6b39ff12039e760979bb0caa89573f','format' : 'iframe','height' : 250,'width' : 300,'params' : {}};</script>
+    <script type="text/javascript" src="https://www.highperformanceformat.com/dc6b39ff12039e760979bb0caa89573f/invoke.js"></script>
+  </div>
+
+  <img src="https://i.postimg.cc/Wpm4QqMg/IMG-20260206-125538.png" class="logo-top">
+  <h1 style="color:var(--primary); margin: 0; font-size: 24px;">🇧🇩 ZARIF MULTI PLAYER 🇧🇩</h1>
+
+  <div class="ad-box">
+    <script type="text/javascript">atOptions = {'key' : 'b4163f90ac591880afe2eb689a0972a3','format' : 'iframe','height' : 50,'width' : 320,'params' : {}};</script>
+    <script type="text/javascript" src="https://www.highperformanceformat.com/b4163f90ac591880afe2eb689a0972a3/invoke.js"></script>
+  </div>
+
+  <div class="button-grid" id="menuGrid">
+    <div class="tab-btn" onclick="openTab('rules')">📜 গ্রুপ নিয়ম</div>
+    <div class="tab-btn" onclick="openTab('game')">🎮 খেলার রুলস</div>
+    <div class="tab-btn" onclick="openTab('players')">🌟 এক্টিভ প্লিয়ার</div>
+    <div class="tab-btn" onclick="openTab('trip')">🚌 ট্রিপ টাইম</div>
+    <div class="tab-btn" onclick="openTab('notice')">📢 নোটিশ বোর্ড</div>
+    <div class="tab-btn" onclick="openTab('admin')">👥 এডমিন প্যানেল</div>
+    <div class="tab-btn" onclick="openTab('apply')" style="background: linear-gradient(135deg, #ff4757, #ff6b81); color:white;">📝 আবেদন ফরম</div>
+    <div class="tab-btn" onclick="openTab('media')">🔗 গ্রুপ মিডিয়া</div>
+    <div class="tab-btn" onclick="openTab('bus-skins')" style="background: linear-gradient(135deg, #10b981, #059669); color:white;">🚌 বাসের স্কিন</div>
+    <div class="tab-btn" onclick="openTab('map-mods')" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); color:white;">🗺️ ম্যাপ মোড</div>
+    <div class="tab-btn" onclick="openTab('dev')" style="grid-column: span 2; background: #334155; color:white;">👨‍💻 ডেভেলপার পরিচয়</div>
+  </div>
+
+  <div id="rules" class="section">
+    <button class="back-btn" onclick="backToMenu()">← ব্যাক টু মেনু</button>
+    <h2>📜 গ্রুপ নিয়মাবলী</h2>
+    <ul class="rule-list">
+      <li>🎮 শুধু BUSSID গেম নিয়ে আলোচনা করা যাবে।</li>
+      <li>🔗 গেম লিংক, মোড, স্কিন শেয়ার করা যাবে।</li>
+      <li>🛑 গালাগালি ও খারাপ ভাষা ব্যবহার নিষিদ্ধ।</li>
+      <li>📢 গ্রুপ বা চ্যানেল প্রমোশন নিষিদ্ধ।</li>
+      <li>⚠️ হ্যাকিং ব্যবহারে আইডি সরাসরি ব্যান।</li>
+    </ul>
+    <div style="background:rgba(255,71,87,0.25); border:1px solid #ff4757; padding:12px; border-radius:12px; text-align:center; color:#ffccd5; font-weight:bold; margin-top:15px;">🗳️ রাজনৈতিক আলোচনা কঠোরভাবে নিষিদ্ধ</div>
+  </div>
+
+  <div id="game" class="section">
+    <button class="back-btn" onclick="backToMenu()">← ব্যাক টু মেনু</button>
+    <h2>🎮 Gameplay Rules</h2>
+    <ul class="rule-list">
+      <li>⏱️ মাস্টার "Ready" বললে সাথে সাথে রেডি দেবেন।</li>
+      <li>🚦 মাস্টার "Go" না বলা পর্যন্ত গাড়ি ছাড়বেন না।</li>
+      <li>🎥 ভিডিও চলাকালীন সময়ে অবশ্যই Depper দিবেন।</li>
+      <li>❌ স্পিড হ্যাক বা স্পিড ফাইল ব্যবহার সম্পূর্ণ নিষিদ্ধ।</li>
+      <li>🗺️ লোডিং এর পর সুন্দরভাবে লাইন বজায় রাখুন।</li>
+    </ul>
+  </div>
+
+  <div id="players" class="section">
+    <button class="back-btn" onclick="backToMenu()">← ব্যাক</button>
+    <h2>🌟 Active Players</h2>
+    <span class="player-tag">মোঃ জারিফ</span> <span class="player-tag">মোঃ নূর আজম রাশেদ</span>
+    <span class="player-tag">মোঃ রাকিবুল ইসলাম</span> <span class="player-tag">মোঃ আতিকুর রহমান</span>
+    <span class="player-tag">মোঃ আরিফ হাসান</span> <span class="player-tag">মোঃ হাবিব খান</span>
+  </div>
+
+  <div id="trip" class="section">
+    <button class="back-btn" onclick="backToMenu()">← ব্যাক</button>
+    <h2>🚌 Trip Schedule</h2>
+    <div style="padding:20px; background:rgba(255,235,59,0.12); border-radius:15px; border: 1px dashed var(--primary);">
+      <h3 style="color:var(--primary);">🌞 সকাল ১০:৩০ মিনিট</h3>
+      <h3 style="color:var(--primary);">🌙 রাত ০৭:৩০ মিনিট</h3>
+    </div>
+  </div>
+
+  <div id="notice" class="section">
+    <button class="back-btn" onclick="backToMenu()">← ব্যাক</button>
+    <h2>📢 নোটিশ বোর্ড</h2>
+    <ul class="rule-list">
+        <li>ওবিবি পাসওয়ার্ড: <b>ABGZ</b></li>
+        <li>আমরা প্রতিনিয়ত আপডেট ভার্সনে খেলি।</li>
+    </ul>
+    <a class="media-btn" style="background:#2563eb;" href="https://drive.google.com/file/d/1ARxdzsICa9wG636AAUhlRW3ww8GYOCWe/view?usp=drivesdk">Download APK</a>
+    <a class="media-btn" style="background:#059669;" href="https://drive.google.com/file/d/1zvlg-sPTtI6i50Ks1i3O5-WrFFP4PLoQ/view?usp=drivesdk">Download OBB</a>
+  </div>
+
+  <div id="admin" class="section">
+    <button class="back-btn" onclick="backToMenu()">← ব্যাক</button>
+    <h2>👥 Admin Panel</h2>
+    <ul class="rule-list">
+      <li>👤 মোঃ জারিফ (Head) | 📞 01615329306</li>
+      <li>👤 মোঃ নূর আজম রাশেদ (2nd) | 📞 01738348181</li>
+      <li>👤 মোঃ রাকিবুল ইসলাম (Master) | 📞 01339340087</li>
+      <li>👤 BD BUS LOVER ATIK (Dev) | 📞 01827404265</li>
+    </ul>
+  </div>
+
+  <div id="apply" class="section">
+    <button class="back-btn" onclick="backToMenu()">← ব্যাক</button>
+    <h2>📝 Joining Application</h2>
+    <a class="media-btn" style="background:#dc2626;" href="https://docs.google.com/forms/d/e/1FAIpQLSf8upmH2GkKey98TafVOwP6F_AOL6SswxA76kXULntjvZdTUw/viewform?usp=header">জয়েনিং আবেদন ফরম পূরণ করুন</a>
+  </div>
+
+  <div id="media" class="section">
+    <button class="back-btn" onclick="backToMenu()">← ব্যাক</button>
+    <h2>🔗 Community Links</h2>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+      <a class="media-btn" style="background:#1877f2;" href="https://www.facebook.com/share/g/18c6S6RSaD/">Facebook</a>
+      <a class="media-btn" style="background:#ff0000;" href="https://www.youtube.com/@Jarifjeem.jarifjeem">YouTube</a>
+      <a class="media-btn" style="background:#0088cc;" href="https://t.me/+b4zVS-AIJW40MTA1">Telegram</a>
+      <a class="media-btn" style="background:#5865F2;" href="https://discord.gg/r4sM2HK4R">Discord</a>
+    </div>
+  </div>
+
+  <div id="bus-skins" class="section">
+    <button class="back-btn" onclick="backToMenu()">← ব্যাক</button>
+    <h2>🚌 বাসের স্কিন কালেকশন</h2>
+    <div class="item-card">
+      <img src="https://i.postimg.cc/Wpm4QqMg/IMG-20260206-125538.png" class="item-img">
+      <h3 style="color:var(--primary);">স্কিন নাম এখানে</h3>
+      <p>পাসওয়ার্ড: নাই</p>
+      <a class="media-btn" style="background:#10b981;" href="#">ডাউনলোড স্কিন</a>
+    </div>
+  </div>
+
+  <div id="map-mods" class="section">
+    <button class="back-btn" onclick="backToMenu()">← ব্যাক</button>
+    <h2>🗺️ ম্যাপ মোড কালেকশন</h2>
+    <div class="item-card">
+      <img src="https://i.postimg.cc/Wpm4QqMg/IMG-20260206-125538.png" class="item-img">
+      <h3 style="color:var(--primary);">ম্যাপ নাম এখানে</h3>
+      <a class="media-btn" style="background:#8b5cf6;" href="#">ডাউনলোড ম্যাপ</a>
+    </div>
+  </div>
+
+  <div id="dev" class="section">
+    <button class="back-btn" onclick="backToMenu()">← ব্যাক</button>
+    <h2>👨‍💻 Developer Profile</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+      <a class="media-btn" style="background:#22c55e;" href="https://sites.google.com/view/bdbusloveratik/">Website</a>
+      <a class="media-btn" style="background:#ff0000;" href="https://youtube.com/@bdbusloveratik">YouTube</a>
+      <a class="media-btn" style="background:#0088cc;" href="https://t.me/bdbusloveratik65">Telegram</a>
+      <a class="media-btn" style="background:#1877f2;" href="https://www.facebook.com/share/17yjUhciHE/">Facebook</a>
+    </div>
+    <p style="font-size:11px; opacity:0.6; margin-top:15px;">© 2026 Parvez Akhanda & Atikur Rahaman</p>
+  </div>
+
+  <div class="ad-box">
+    <script type="text/javascript">atOptions = {'key' : 'b4163f90ac591880afe2eb689a0972a3','format' : 'iframe','height' : 50,'width' : 320,'params' : {}};</script>
+    <script type="text/javascript" src="https://www.highperformanceformat.com/b4163f90ac591880afe2eb689a0972a3/invoke.js"></script>
+  </div>
+
+</div>
+
+<div id="autoAdOverlay">
+  <div style="background:#0f0f1a; padding:20px; border-radius:20px; border:2px solid #ffeb3b; text-align:center; width:90%; max-width:400px;">
+    <h3 style="color:#ffeb3b;">স্পনসরড বিজ্ঞাপন</h3>
+    <iframe src="https://www.effectivegatecpm.com/adkccf8mm?key=5ff76540ce0a0bc3a9dd42d79309fa8e" style="width:100%; height:300px; border:none; margin-bottom:10px;"></iframe>
+    <button id="skipBtn" style="display:none; margin-top:15px; background:#ef4444; color:white; border:none; padding:12px 40px; border-radius:10px; cursor:pointer; font-weight:bold;">Skip Ad</button>
+  </div>
+</div>
+
+<script>
+function openTab(tabId) {
+  document.getElementById('menuGrid').style.display = 'none';
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+  document.getElementById(tabId).style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function backToMenu() {
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+  document.getElementById('menuGrid').style.display = 'grid';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+// 5 Minutes ad logic
+setTimeout(() => {
+  const overlay = document.getElementById('autoAdOverlay');
+  const skip = document.getElementById('skipBtn');
+  overlay.style.display = 'flex';
+  setTimeout(() => { skip.style.display = 'inline-block'; skip.onclick = () => overlay.style.display = 'none'; }, 8000);
+}, 300000);
+</script>
+
+</body>
+</html>
